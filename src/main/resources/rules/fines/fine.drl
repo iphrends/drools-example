@@ -1,0 +1,16 @@
+package rules;
+import com.iphrends.drools.models.Fine;
+
+rule "Speed Violation 2 wheeler"
+    when
+        $speed : Fine(vehicle=="2 Wheeler" && speed>100);
+    then
+        $speed.setFine(1000);
+    end;
+
+rule "Speed Violation 4 wheeler"
+    when
+        $speed : Fine(vehicle=="4 Wheeler" && speed>100);
+    then
+        $speed.setFine(150);
+    end;
