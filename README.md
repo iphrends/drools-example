@@ -1,4 +1,5 @@
-cURL to fetch fine for 2 wheelers<br />
+Copy rules directory from _resources_ and place to /tmp <br /> 
+<br />cURL to fetch fine for 2 wheelers<br />
 `curl --location --request POST 'localhost:8080/fines/vehicles' \
 --header 'Content-Type: application/json' \
 --data-raw '{
