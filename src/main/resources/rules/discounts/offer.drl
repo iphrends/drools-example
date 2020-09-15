@@ -1,18 +1,24 @@
 package rules;
 import com.iphrends.drools.models.Order;
-no-loop
+
 rule "HDFC"
-salience -100
+    agenda-group "ag1"
+    salience -100
     when
         orderObject : Order(cardType=="HDFC" && price>10000);
     then
         orderObject.setDiscount(9);
+        update(orderObject);
     end;
+
 rule "HDFC2"
+    agenda-group "ag1"
+    salience 1
     when
         orderObject : Order(cardType=="HDFC" && price>10000);
     then
         orderObject.setDiscount(10);
+        update(orderObject);
     end;
 
 rule "ICICI"
@@ -20,6 +26,7 @@ rule "ICICI"
         orderObject : Order(cardType=="ICICI" && price>15000);
     then
         orderObject.setDiscount(8);
+        update(orderObject);
     end;
 
 rule "DBS"
@@ -27,4 +34,5 @@ rule "DBS"
         orderObject : Order(cardType=="DBS" && price>15000);
     then
         orderObject.setDiscount(15);
+        update(orderObject);
     end;
