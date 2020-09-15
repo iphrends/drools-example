@@ -1,6 +1,6 @@
 package rules;
 import com.iphrends.drools.models.Fine;
-
+no-loop
 rule "Speed Violation 2 wheeler"
     when
         $speed : Fine(vehicle=="2 Wheeler" && speed>100);
