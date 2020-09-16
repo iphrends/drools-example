@@ -1,7 +1,7 @@
 package com.iphrends.drools.services;
 
 import com.iphrends.drools.config.TrackingAgendaEventListener;
-import com.iphrends.drools.models.Order;
+import com.iphrends.drools.models.IdCard;
 import lombok.extern.slf4j.Slf4j;
 import org.kie.api.event.rule.AgendaEventListener;
 import org.kie.api.runtime.KieContainer;
@@ -10,15 +10,15 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
-public class OrderService extends BaseDroolsService<Order> {
+public class IdCardService extends BaseDroolsService<IdCard> {
 
-    public OrderService(KieContainer kieContainer) {
+    protected IdCardService(KieContainer kieContainer) {
         super(kieContainer);
     }
-    private final KieSession kieSession = getKieContainer().newKieSessionsPool(2).newKieSession();
 
     @Override
-    public Order execute(Order object) {
+    public IdCard execute(IdCard object) {
+        KieSession kieSession = getKieContainer().newKieSession();
         AgendaEventListener agendaEventListener = new TrackingAgendaEventListener();
         kieSession.addEventListener(agendaEventListener);
         try {
@@ -28,14 +28,13 @@ public class OrderService extends BaseDroolsService<Order> {
             kieSession.getAgenda().getAgendaGroup("ag1").setFocus();
             log.info("{} rules fired...!!!", kieSession.fireAllRules());
         } finally {
-//            kieSession.dispose();
-//            log.info("session disposed...!!!");
+            kieSession.dispose();
+            log.info("session disposed...!!!");
         }
         return object;
     }
 
-    public Order getDiscount(Order order) {
-        return execute(order);
+    public IdCard getIdCard(IdCard card) {
+        return execute(card);
     }
-
 }
