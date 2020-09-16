@@ -18,20 +18,115 @@ rule "Legality type LLC"
                 new Role("Partner",
                         Arrays.asList("Individual", "Corporate Body"),
                         2, 50, Arrays.asList(
-                                            new Nationality(Arrays.asList("UAE", "UAE"), "No Special Rule", null),
-                                            new Nationality(Arrays.asList("UAE", "GCC"), "No Special Rule", null),
-                                            new Nationality(Arrays.asList("UAE", "Expatriate"), "Minimum 51% for UAE Partner(s)", null),
-                                            new Nationality(Arrays.asList("UAE", "Corporate Body 1"), "No Special Rule", Arrays.asList(new DefaultKeyValue<String, String>("Corporate Body 1", "100% UAE or GCC"))),
-                                            new Nationality(Arrays.asList("UAE", "Corporate Body 2"), "Minimum 51% for UAE Partner(s)", Arrays.asList(new DefaultKeyValue<String, String>("Corporate Body 2", "51% UAE, 49% Expatriate"))),
-                                            new Nationality(Arrays.asList("UAE", "Corporate Body 3"), "Minimum 51% for UAE Partner(s)", Arrays.asList(new DefaultKeyValue<String, String>("Corporate Body 3", "100% Expatriates"))),
-                                            new Nationality(Arrays.asList("GCC", "GCC"), "No Special Rule", null),
-                                            new Nationality(Arrays.asList("Corporate Body 1", "GCC"), "No Special Rule", Arrays.asList(new DefaultKeyValue<String, String>("Corporate Body 1", "100% UAE or GCC"))),
-                                            new Nationality(Arrays.asList("Corporate Body 1", "Expatriate"), "Minimum 51% for Corporate Body 1*", Arrays.asList(new DefaultKeyValue<String, String>("Corporate Body 1", "100% UAE or GCC"))),
-                                            new Nationality(Arrays.asList("Corporate Body 1", "Corporate Body 1"), "No Special Rule", Arrays.asList(new DefaultKeyValue<String, String>("Corporate Body 1", "100% UAE or GCC"))),
-                                            new Nationality(Arrays.asList("Corporate Body 1", "Corporate Body 2"), "Minimum 51% for Corporate Body 1*", Arrays.asList(new DefaultKeyValue<String, String>("Corporate Body 1", "100% UAE or GCC"), new DefaultKeyValue<String, String>("Corporate Body 2", "51% UAE, 49% Expatriate"))),
-                                            new Nationality(Arrays.asList("Corporate Body 1", "Corporate Body 3"), "Minimum 51% for Corporate Body 1*", Arrays.asList(new DefaultKeyValue<String, String>("Corporate Body 1", "100% UAE or GCC"), new DefaultKeyValue<String, String>("Corporate Body 3", "100% Expatriates")))
-                                            )
+                                            new Nationality(Arrays.asList("UAE", "UAE"), "No Special Rule", null, null),
+                                            new Nationality(Arrays.asList("UAE", "GCC"), "No Special Rule", null, null),
+                                            new Nationality(Arrays.asList("UAE", "Expatriate"), "Minimum 51% for UAE Partner(s)", null, null),
+                                            new Nationality(Arrays.asList("UAE", "Corporate Body 1"), "No Special Rule", Arrays.asList(new DefaultKeyValue<String, String>("Corporate Body 1", "100% UAE or GCC")), null),
+                                            new Nationality(Arrays.asList("UAE", "Corporate Body 2"), "Minimum 51% for UAE Partner(s)", Arrays.asList(new DefaultKeyValue<String, String>("Corporate Body 2", "51% UAE, 49% Expatriate")), null),
+                                            new Nationality(Arrays.asList("UAE", "Corporate Body 3"), "Minimum 51% for UAE Partner(s)", Arrays.asList(new DefaultKeyValue<String, String>("Corporate Body 3", "100% Expatriates")), null),
+                                            new Nationality(Arrays.asList("GCC", "GCC"), "No Special Rule", null, null),
+                                            new Nationality(Arrays.asList("Corporate Body 1", "GCC"), "No Special Rule", Arrays.asList(new DefaultKeyValue<String, String>("Corporate Body 1", "100% UAE or GCC")), null),
+                                            new Nationality(Arrays.asList("Corporate Body 1", "Expatriate"), "Minimum 51% for Corporate Body 1*", Arrays.asList(new DefaultKeyValue<String, String>("Corporate Body 1", "100% UAE or GCC")), null),
+                                            new Nationality(Arrays.asList("Corporate Body 1", "Corporate Body 1"), "No Special Rule", Arrays.asList(new DefaultKeyValue<String, String>("Corporate Body 1", "100% UAE or GCC")), null),
+                                            new Nationality(Arrays.asList("Corporate Body 1", "Corporate Body 2"), "Minimum 51% for Corporate Body 1*", Arrays.asList(new DefaultKeyValue<String, String>("Corporate Body 1", "100% UAE or GCC"), new DefaultKeyValue<String, String>("Corporate Body 2", "51% UAE, 49% Expatriate")), null),
+                                            new Nationality(Arrays.asList("Corporate Body 1", "Corporate Body 3"), "Minimum 51% for Corporate Body 1*", Arrays.asList(new DefaultKeyValue<String, String>("Corporate Body 1", "100% UAE or GCC"), new DefaultKeyValue<String, String>("Corporate Body 3", "100% Expatriates")), null)
                         )
+                ),
+                new Role("Manager",
+                        Arrays.asList("Individual"),
+                        1, 11, Arrays.asList(
+                                            new Nationality(Arrays.asList("Any Nationality"), null, null, null)
+                        )
+                )
+            )
+        );
+end
+
+
+rule "Legality type LLC-SO"
+    when
+        $legality: Legality("llc-so".equalsIgnoreCase(legalityType))
+    then
+        $legality.setActivitiesType(Arrays.asList("Professional", "Commercial", "Industrial", "Tourism"));
+        $legality.setRoles(
+            Arrays.asList(
+                new Role("Shares Owner",
+                        Arrays.asList("Individual", "Corporate Body"),
+                        1, 1, Arrays.asList(
+                                            new Nationality(Arrays.asList("UAE", "GCC"), null, null, null)
+                        )
+                ),
+                new Role("Manager",
+                        Arrays.asList("Individual"),
+                        1, 11, Arrays.asList(
+                                            new Nationality(Arrays.asList("Any Nationality"), null, null, null)
+                        )
+                )
+            )
+        );
+end
+
+
+rule "Legality type SOLO-EST"
+    when
+        $legality: Legality("solo-est".equalsIgnoreCase(legalityType))
+    then
+        $legality.setRoles(
+            Arrays.asList(
+                new Role("Owner",
+                        Arrays.asList("Individual"),
+                        1, 1, Arrays.asList(
+                                            new Nationality(Arrays.asList("UAE"), null, null, "0"),
+                                            new Nationality(Arrays.asList("GCC"), null, null, "0"),
+                                            new Nationality(Arrays.asList("Expatriate"), null, null, "1")
+                        )
+                ),
+                new Role("Manager",
+                        Arrays.asList("Individual"),
+                        0, 3, Arrays.asList(
+                                            new Nationality(Arrays.asList("Any"), null, null, null)
+                        )
+                ),
+                new Role("Local Agent",
+                        Arrays.asList("Individual"),
+                        1, 1, Arrays.asList(
+                                            new Nationality(Arrays.asList("UAE"), "Depends on scenario", null, null)
+                        )
+                )
+            )
+        );
+end
+
+
+rule "Legality type CIVIL-COM"
+    when
+        $legality: Legality("civil-com".equalsIgnoreCase(legalityType))
+    then
+        $legality.setActivitiesType(Arrays.asList("Professional"));
+        $legality.setRoles(
+            Arrays.asList(
+                new Role("Partner",
+                        Arrays.asList("Individual"),
+                        2, 50, Arrays.asList(
+                                            new Nationality(Arrays.asList("UAE", "UAE"), null, null, "0"),
+                                            new Nationality(Arrays.asList("UAE", "GCC"), null, null, "0"),
+                                            new Nationality(Arrays.asList("GCC", "GCC"), null, null, "0"),
+                                            new Nationality(Arrays.asList("GCC", "Expatriate"), null, null, "1"),
+                                            new Nationality(Arrays.asList("Expatriate", "Expatriate"), null, null, "1")
+                        )
+                ),
+                new Role("Manager",
+                        Arrays.asList("Individual"),
+                        0, 3, Arrays.asList(
+                                            new Nationality(Arrays.asList("Any"), null, null, null)
+                        )
+                ),
+                new Role("Local Agent",
+                        Arrays.asList("Individual"),
+                        1, 1, Arrays.asList(
+                                            new Nationality(Arrays.asList("UAE"), "Depends on scenario", null, null)
+                        )
+                )
             )
         );
 end
