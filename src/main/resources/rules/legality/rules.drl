@@ -59,7 +59,7 @@ rule "Legality type LLC-SO"
                 new Role("Manager",
                         Arrays.asList("Individual"),
                         1, 11, Arrays.asList(
-                                            new Nationality(Arrays.asList("Any Nationality"), null, null, null)
+                                            new Nationality(Arrays.asList("Any"), null, null, null)
                         )
                 )
             )
@@ -76,9 +76,9 @@ rule "Legality type SOLO-EST"
                 new Role("Owner",
                         Arrays.asList("Individual"),
                         1, 1, Arrays.asList(
-                                            new Nationality(Arrays.asList("UAE"), null, null, "0"),
-                                            new Nationality(Arrays.asList("GCC"), null, null, "0"),
-                                            new Nationality(Arrays.asList("Expatriate"), null, null, "1")
+                                            new Nationality(Arrays.asList("UAE"), null, Arrays.asList(new DefaultKeyValue<String, String>("isLocalServiceAgentRequired", "0")), null),
+                                            new Nationality(Arrays.asList("GCC"), null, Arrays.asList(new DefaultKeyValue<String, String>("isLocalServiceAgentRequired", "0")), null),
+                                            new Nationality(Arrays.asList("Expatriate"), null, Arrays.asList(new DefaultKeyValue<String, String>("isLocalServiceAgentRequired", "1")), Arrays.asList("Professional"))
                         )
                 ),
                 new Role("Manager",
@@ -108,11 +108,11 @@ rule "Legality type CIVIL-COM"
                 new Role("Partner",
                         Arrays.asList("Individual"),
                         2, 50, Arrays.asList(
-                                            new Nationality(Arrays.asList("UAE", "UAE"), null, null, "0"),
-                                            new Nationality(Arrays.asList("UAE", "GCC"), null, null, "0"),
-                                            new Nationality(Arrays.asList("GCC", "GCC"), null, null, "0"),
-                                            new Nationality(Arrays.asList("GCC", "Expatriate"), null, null, "1"),
-                                            new Nationality(Arrays.asList("Expatriate", "Expatriate"), null, null, "1")
+                                            new Nationality(Arrays.asList("UAE", "UAE"), null, Arrays.asList(new DefaultKeyValue<String, String>("isLocalServiceAgentRequired", "0")), null),
+                                            new Nationality(Arrays.asList("UAE", "GCC"), null, Arrays.asList(new DefaultKeyValue<String, String>("isLocalServiceAgentRequired", "0")), null),
+                                            new Nationality(Arrays.asList("GCC", "GCC"), null, Arrays.asList(new DefaultKeyValue<String, String>("isLocalServiceAgentRequired", "0")), null),
+                                            new Nationality(Arrays.asList("GCC", "Expatriate"), null, Arrays.asList(new DefaultKeyValue<String, String>("isLocalServiceAgentRequired", "1")), null),
+                                            new Nationality(Arrays.asList("Expatriate", "Expatriate"), null, Arrays.asList(new DefaultKeyValue<String, String>("isLocalServiceAgentRequired", "1")), null)
                         )
                 ),
                 new Role("Manager",

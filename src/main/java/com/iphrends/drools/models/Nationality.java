@@ -8,24 +8,24 @@ public class Nationality {
     private List<String> combinations;
     private String remark;
     private List<DefaultKeyValue<String, String>> attributes;
-    private String isLocalServiceAgentRequired;
+    private List<String> activitiesType;
 
     public Nationality() {
     }
 
-    public Nationality(List<String> combinations, String remark, List<DefaultKeyValue<String, String>> attributes, String isLocalServiceAgentRequired) {
+    public Nationality(List<String> combinations, String remark, List<DefaultKeyValue<String, String>> attributes, List<String> activitiesType) {
         this.combinations = combinations;
         this.remark = remark;
         this.attributes = attributes;
-        this.isLocalServiceAgentRequired = isLocalServiceAgentRequired;
+        this.activitiesType = activitiesType;
     }
 
-    public String getIsLocalServiceAgentRequired() {
-        return isLocalServiceAgentRequired;
+    public List<String> getActivitiesType() {
+        return activitiesType;
     }
 
-    public void setIsLocalServiceAgentRequired(String isLocalServiceAgentRequired) {
-        this.isLocalServiceAgentRequired = isLocalServiceAgentRequired;
+    public void setActivitiesType(List<String> activitiesType) {
+        this.activitiesType = activitiesType;
     }
 
     public List<String> getCombinations() {
