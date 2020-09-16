@@ -1,0 +1,18 @@
+package rules.legality;
+
+import java.util.Arrays;
+import com.iphrends.drools.models.Legality;
+import com.iphrends.drools.models.Role;
+import com.iphrends.drools.models.MemberType;
+import com.iphrends.drools.models.Nationality;
+import org.apache.commons.collections4.keyvalue.DefaultKeyValue;
+
+
+rule "Legality type LLC"
+    when
+        $legality: Legality(legalityType == "llc")
+    then
+        $legality.setActivitiesType(Arrays.asList("Professional", "Commercial", "Industrial", "Tourism"));
+        $legality.setRoles(Arrays.asList(new Role("Partner", Arrays.asList("Individual", "Corporate Body"), 2, 50, Arrays.asList(new Nationality(Arrays.asList("UAE", "UAE"), "No Special Rule", null)))));
+        //$legality.setRoles(Arrays.asList(new Role("Partner", Arrays.asList(new MemberType("Individual"), new MemberType("Corporate Body")), 2, 50, Arrays.asList(new Nationality(Arrays.asList("UAE", "UAE"), "No Special Rule", Arrays.asList(new DefaultKeyValue<>("key", "value")))))));
+end
