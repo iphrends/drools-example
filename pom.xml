@@ -70,6 +70,18 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+		<dependency>
+			<groupId>org.droolsassert</groupId>
+			<artifactId>droolsassert</artifactId>
+			<version>2.1.0</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.github.jeichler</groupId>
+			<artifactId>junit-drools</artifactId>
+			<version>1.0</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<build>

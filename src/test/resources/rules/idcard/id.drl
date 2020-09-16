@@ -1,0 +1,10 @@
+package rules.idcard;
+import com.iphrends.drools.models.IdCard;
+
+rule "Adult"
+    when
+        $1: IdCard(age >= 18 && location == "London")
+    then
+        $1.setIssueCard(true);
+        update($1);
+    end;

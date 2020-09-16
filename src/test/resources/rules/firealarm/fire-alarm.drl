@@ -1,0 +1,13 @@
+package rules.firealarm;
+import com.iphrends.drools.models.FireAlarm;
+import com.iphrends.drools.models.Alarm;
+import com.iphrends.drools.models.Room;
+import com.iphrends.drools.models.Sprinkler;
+
+rule "Status output when things are ok"
+    when
+        Alarm(on == false)
+        not Sprinkler( on == true )
+    then
+        System.out.println( "Everything is ok" );
+    end;
