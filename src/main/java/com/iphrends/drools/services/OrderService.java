@@ -2,7 +2,6 @@ package com.iphrends.drools.services;
 
 import com.iphrends.drools.config.TrackingAgendaEventListener;
 import com.iphrends.drools.models.Order;
-import lombok.extern.slf4j.Slf4j;
 import org.kie.api.event.rule.AgendaEventListener;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
@@ -11,7 +10,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 @Service
-@Slf4j
 public class OrderService extends BaseDroolsService<Order> {
 
 	private static final Logger log = LoggerFactory.getLogger(OrderService.class);
@@ -20,7 +18,7 @@ public class OrderService extends BaseDroolsService<Order> {
 		super(kieContainer);
 	}
 
-	private final KieSession kieSession = getKieContainer().newKieSessionsPool(2).newKieSession();
+	private final KieSession kieSession = kieContainer.newKieSessionsPool(2).newKieSession();
 
 	@Override
 	public Order execute(Order object) {
