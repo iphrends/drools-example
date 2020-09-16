@@ -6,11 +6,15 @@ import lombok.extern.slf4j.Slf4j;
 import org.kie.api.event.rule.AgendaEventListener;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
 public class FineService extends BaseDroolsService<Fine> {
+	
+	private static final Logger log = LoggerFactory.getLogger(FineService.class);
 
     protected FineService(KieContainer kieContainer) {
         super(kieContainer);
