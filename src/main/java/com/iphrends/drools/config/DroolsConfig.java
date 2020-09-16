@@ -25,7 +25,6 @@ public class DroolsConfig {
         for (Resource file : getRuleFiles()) {
             String path = file.getURL().getPath();
             kieFileSystem.write(ResourceFactory.newClassPathResource(path.substring(path.indexOf(RULES_PATH)), "UTF-8"));
-//            kieFileSystem.write(ResourceFactory.newClassPathResource(RULES_PATH + file.getFilename(), "UTF-8"));
         }
         return kieFileSystem;
     }
@@ -33,7 +32,6 @@ public class DroolsConfig {
     private Resource[] getRuleFiles() throws IOException {
         ResourcePatternResolver resourcePatternResolver = new PathMatchingResourcePatternResolver();
         return resourcePatternResolver.getResources(RULES_PATH + "**/*.drl");
-//        return resourcePatternResolver.getResources("classpath*:" + RULES_PATH +"**/"+ "**/*.*");
     }
 
     @Bean

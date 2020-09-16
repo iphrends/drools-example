@@ -22,7 +22,7 @@ public class IdCardService extends BaseDroolsService<IdCard> {
 
     @Override
     public IdCard execute(IdCard object) {
-        KieSession kieSession = getKieContainer().newKieSession();
+        KieSession kieSession = kieContainer.newKieSession();
         AgendaEventListener agendaEventListener = new TrackingAgendaEventListener();
         kieSession.addEventListener(agendaEventListener);
         try {

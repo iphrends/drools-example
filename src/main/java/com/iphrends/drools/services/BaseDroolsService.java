@@ -4,11 +4,7 @@ import org.kie.api.runtime.KieContainer;
 
 public abstract class BaseDroolsService<T> {
 
-    private final KieContainer kieContainer;
-
-    public KieContainer getKieContainer() {
-        return kieContainer;
-    }
+    protected final KieContainer kieContainer;
 
     protected BaseDroolsService(KieContainer kieContainer) {
         this.kieContainer = kieContainer;

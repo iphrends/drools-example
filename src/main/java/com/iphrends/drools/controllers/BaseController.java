@@ -3,6 +3,7 @@ package com.iphrends.drools.controllers;
 import com.iphrends.drools.models.Pojo;
 import com.iphrends.drools.services.BaseDroolsService;
 
+@SuppressWarnings({"rawtypes", "unchecked"})
 public abstract class BaseController {
 
     private final BaseDroolsService baseDroolsService;

@@ -22,7 +22,7 @@ public class FireAlarmService extends BaseDroolsService<FireAlarm> {
     @Override
     public FireAlarm execute(FireAlarm object) {
 
-        final KieSession kieSession = getKieContainer().newKieSession();
+        final KieSession kieSession = kieContainer.newKieSession();
         kieSession.addEventListener(new TrackingAgendaEventListener());
         try {
             log.info("{} inserting...", object);

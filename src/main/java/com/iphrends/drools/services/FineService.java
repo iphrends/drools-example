@@ -22,7 +22,7 @@ public class FineService extends BaseDroolsService<Fine> {
 
     @Override
     public Fine execute(Fine object) {
-        KieSession kieSession = getKieContainer().newKieSession();
+        KieSession kieSession = kieContainer.newKieSession();
         AgendaEventListener agendaEventListener = new TrackingAgendaEventListener();
         kieSession.addEventListener(agendaEventListener);
         try {
