@@ -10,9 +10,28 @@ import org.apache.commons.collections4.keyvalue.DefaultKeyValue;
 
 rule "Legality type LLC"
     when
-        $legality: Legality(legalityType == "llc")
+        $legality: Legality("llc".equalsIgnoreCase(legalityType))
     then
         $legality.setActivitiesType(Arrays.asList("Professional", "Commercial", "Industrial", "Tourism"));
-        $legality.setRoles(Arrays.asList(new Role("Partner", Arrays.asList("Individual", "Corporate Body"), 2, 50, Arrays.asList(new Nationality(Arrays.asList("UAE", "UAE"), "No Special Rule", null)))));
-        //$legality.setRoles(Arrays.asList(new Role("Partner", Arrays.asList(new MemberType("Individual"), new MemberType("Corporate Body")), 2, 50, Arrays.asList(new Nationality(Arrays.asList("UAE", "UAE"), "No Special Rule", Arrays.asList(new DefaultKeyValue<>("key", "value")))))));
+        $legality.setRoles(
+            Arrays.asList(
+                new Role("Partner",
+                        Arrays.asList("Individual", "Corporate Body"),
+                        2, 50, Arrays.asList(
+                                            new Nationality(Arrays.asList("UAE", "UAE"), "No Special Rule", null),
+                                            new Nationality(Arrays.asList("UAE", "GCC"), "No Special Rule", null),
+                                            new Nationality(Arrays.asList("UAE", "Expatriate"), "Minimum 51% for UAE Partner(s)", null),
+                                            new Nationality(Arrays.asList("UAE", "Corporate Body 1"), "No Special Rule", Arrays.asList(new DefaultKeyValue<String, String>("Corporate Body 1", "100% UAE or GCC"))),
+                                            new Nationality(Arrays.asList("UAE", "Corporate Body 2"), "Minimum 51% for UAE Partner(s)", Arrays.asList(new DefaultKeyValue<String, String>("Corporate Body 2", "51% UAE, 49% Expatriate"))),
+                                            new Nationality(Arrays.asList("UAE", "Corporate Body 3"), "Minimum 51% for UAE Partner(s)", Arrays.asList(new DefaultKeyValue<String, String>("Corporate Body 3", "100% Expatriates"))),
+                                            new Nationality(Arrays.asList("GCC", "GCC"), "No Special Rule", null),
+                                            new Nationality(Arrays.asList("Corporate Body 1", "GCC"), "No Special Rule", Arrays.asList(new DefaultKeyValue<String, String>("Corporate Body 1", "100% UAE or GCC"))),
+                                            new Nationality(Arrays.asList("Corporate Body 1", "Expatriate"), "Minimum 51% for Corporate Body 1*", Arrays.asList(new DefaultKeyValue<String, String>("Corporate Body 1", "100% UAE or GCC"))),
+                                            new Nationality(Arrays.asList("Corporate Body 1", "Corporate Body 1"), "No Special Rule", Arrays.asList(new DefaultKeyValue<String, String>("Corporate Body 1", "100% UAE or GCC"))),
+                                            new Nationality(Arrays.asList("Corporate Body 1", "Corporate Body 2"), "Minimum 51% for Corporate Body 1*", Arrays.asList(new DefaultKeyValue<String, String>("Corporate Body 1", "100% UAE or GCC"), new DefaultKeyValue<String, String>("Corporate Body 2", "51% UAE, 49% Expatriate"))),
+                                            new Nationality(Arrays.asList("Corporate Body 1", "Corporate Body 3"), "Minimum 51% for Corporate Body 1*", Arrays.asList(new DefaultKeyValue<String, String>("Corporate Body 1", "100% UAE or GCC"), new DefaultKeyValue<String, String>("Corporate Body 3", "100% Expatriates")))
+                                            )
+                        )
+            )
+        );
 end
